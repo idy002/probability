@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+%\usepackage{xeCJK}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{eg}{Example}
+\newtheorem{ex}{Exercise}
+\newtheorem{defi}{Definition}
+\theoremstyle{definition}
+\newtheorem{hw}{Problem}
+\newenvironment{sol}
+{\par\vspace{3mm}\noindent{\it Solution}.}
+{\qed}
+
+\newcommand{\ov}{\overline}
+\newcommand{\cb}{{\cal B}}
+\newcommand{\cc}{{\cal C}}
+\newcommand{\cd}{{\cal D}}
+\newcommand{\ce}{{\cal E}}
+\newcommand{\cf}{{\cal F}}
+\newcommand{\ch}{{\cal H}}
+\newcommand{\cl}{{\cal L}}
+\newcommand{\cm}{{\cal M}}
+\newcommand{\cp}{{\cal P}}
+\newcommand{\cs}{{\cal S}}
+\newcommand{\cz}{{\cal Z}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\dist}{\mbox{\rm dist}}
+\newcommand{\bn}{{\mathbf N}}
+\newcommand{\bz}{{\mathbf Z}}
+
+\setlength{\parindent}{0pt}
+%\setlength{\parskip}{2ex}
+\newenvironment{proofof}[1]{\bigskip\noindent{\itshape #1. }}{\hfill$\Box$\medskip}
+
+\renewcommand{\familydefault}{pnc}
+
+\begin{document}
+	
+	\bigskip
+	
+	\begin{hw}
+		There is a game. One starts from $(0,0)$ and walks to $(n,n)$, allowed to walk towards right and walk towards up. Define the number of $k$ upward walks above the straight line from $(0,0)$ to $(n,n)$ to be $f(n,k)$. We have that 
+		$$
+			f(n,k) = \frac{1}{n+1}\binom{2n}{n} = C_n
+		$$
+	\end{hw}
+	
+	\begin{proof}
+		Proof by induction. We define the proposition $P(N)$ to be that the property described in the problem holds for all $0 \leq n \leq N$. 
+		
+		It is easy to check that $P(0)$ and $P(1)$ is true. 
+		
+		Assuming that $P(N)$ is true, we will prove that $P(N+1)$ is also true.
+		
+		We enumerate the last position $(x,y)$ the person arrives that satisfies $x = y$. Assume the position is $(r,r)$, where $0 \leq r \leq N$. We use the technique of series to express the schemes:
+		$$
+			(f(r,0)x^0+f(r,1)x^1+f(r,2)x^2+\cdots +f(r,r)x^r)(C_{N-r}x^0 + C_{N-r}x^{N-r})
+		$$
+		where the coefficient of $x^i$ equals to the number of schemes that there are $i$ upward walks from $(0,0)$ to $(N+1,N+1)$ above the straight line in such condition. The second part is the schemes that walks from $(r,r)$ to $(N+1,N+1)$ and never arrives the positions on the straight line between $(r,r)$ and $(N+1,N+1)$. 
+		
+		By the assumption, $f(r,i) = C_r$, this formula can also be expressed as
+		$$
+			(C_rx^0+C_rx^1+C_rx^2+\cdots +C_rx^r)(C_{N-r}x^0 + C_{N-r}x^{N+1-r})
+		$$
+		We can sum them up when $0 \leq r \leq N$:
+		\[
+		\begin{split}
+		 & \sum_{r = 0}^{N}(C_rx^0+C_rx^1+C_rx^2+\cdots +C_rx^r)(C_{N-r}x^0 + C_{N-r}x^{N+1-r}) \\ 
+		=& \sum_{r = 0}^{N}C_rC_{N-r}(x^0+x^1+\cdots+x^r)(x^0+x^{N+1-r}) \\
+		=& \sum_{r = 0}^{N}C_rC_{N-r}(x^0+x^1+\cdots+x^r) + \sum_{r = 0}^{N}C_rC_{N-r}(x^{N+1-r}+\cdots+x^{N+1}) \\
+		=& \sum_{r = 0}^{N}C_rC_{N-r}(x^0+x^1+\cdots+x^r) + \sum_{r = 0}^{N}C_rC_{N-r}(x^{r+1}+\cdots+x^{N+1}) \\
+		=& \sum_{r = 0}^{N}C_rC_{N-r}(x^0+x^1+\cdots+x^{N+1}) \\
+		=& C_{N+1}(x^0+x^1+\cdots+x^{N+1})
+		\end{split}
+		\],
+		which means that $f(N+1,r) = C_{N+1}$ for all $0 \leq r \leq N+1$ and $P(N+1)$ is true.
+	\end{proof}
+	
+	\hfill by dyy
+
+\end{document}
